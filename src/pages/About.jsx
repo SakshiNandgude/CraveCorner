@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/About.css';
-
 import interior_img from "../assets/about_interior.jpg";
 
 function About() {
@@ -26,7 +25,7 @@ function About() {
               <div className="features-checklist">
                 <div className="check-item">
                   <div className="check-icon">
-                    <i className="fas fa-check"></i>
+                    <span role="img" aria-label="Ingredients">{"🥕"}</span>
                   </div>
                   <div className="check-text">
                     Premium ingredients carefully selected from local farms and trusted suppliers
@@ -35,7 +34,7 @@ function About() {
                 
                 <div className="check-item">
                   <div className="check-icon">
-                    <i className="fas fa-check"></i>
+                    <span role="img" aria-label="Passion">{"❤️"}</span>
                   </div>
                   <div className="check-text">
                     Expert chefs combining traditional recipes with modern culinary techniques
@@ -44,7 +43,7 @@ function About() {
                 
                 <div className="check-item">
                   <div className="check-icon">
-                    <i className="fas fa-check"></i>
+                    <span role="img" aria-label="Hygiene">{"🧼"}</span>
                   </div>
                   <div className="check-text">
                     Commitment to food safety and hygiene following international quality standards
@@ -82,7 +81,6 @@ function About() {
                 />
               </div>
               
-              {/* Text below image */}
               <div className="image-caption">
                 <h3 className="caption-title">Experience the CraveCorner Difference</h3>
                 <p className="caption-text">
@@ -95,15 +93,15 @@ function About() {
           </div>
         </div>
 
-        {/* Three Feature Cards - Full Width (12 blocks) */}
+        {/* Three Feature Cards - Full Width */}
         <div className="row full-width-cards-section">
           <div className="col-12">
             <div className="feature-cards-row">
-              {/* Card 1 */}
+              {/* Card 1: Premium Quality Ingredients */}
               <div className="feature-card-full">
                 <div className="card-full-content">
                   <div className="full-card-icon">
-                    <i className="fas fa-star"></i>
+                    <span role="img" aria-label="Ingredients">{"🥕"}</span>
                   </div>
                   <div className="full-card-text">
                     <h3 className="full-card-title">Premium Quality Ingredients</h3>
@@ -114,11 +112,11 @@ function About() {
                 </div>
               </div>
 
-              {/* Card 2 */}
+              {/* Card 2: Made with Passion */}
               <div className="feature-card-full">
                 <div className="card-full-content">
                   <div className="full-card-icon">
-                    <i className="fas fa-heart"></i>
+                    <span role="img" aria-label="Passion">{"❤️"}</span>
                   </div>
                   <div className="full-card-text">
                     <h3 className="full-card-title">Made with Passion</h3>
@@ -129,11 +127,11 @@ function About() {
                 </div>
               </div>
 
-              {/* Card 3 */}
+              {/* Card 3: Expert Culinary Team */}
               <div className="feature-card-full">
                 <div className="card-full-content">
                   <div className="full-card-icon">
-                    <i className="fas fa-users"></i>
+                    <span role="img" aria-label="Chef Team">{"👨‍🍳"}</span>
                   </div>
                   <div className="full-card-text">
                     <h3 className="full-card-title">Expert Culinary Team</h3>
@@ -143,6 +141,7 @@ function About() {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

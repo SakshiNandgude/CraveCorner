@@ -1,159 +1,50 @@
-/* Home Section Styles */
+/* Home.css */
 .home-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 80px 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  
-}
-
-
-.hero-content {
-  padding: 40px 0;
-  margin-left: 150px;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #37373f;
-  margin-bottom: 20px;
-  font-family: 'Playfair Display', serif;
-}
-
-.hero-title .highlight {
-  color: #ce1212;
-  font-style: italic;
-}
-
-.hero-description {
-  font-size: 1.2rem;
-  color: #4f4f5a;
-  line-height: 1.6;
-  margin-bottom: 35px;
-  font-family: 'Inter', sans-serif;
-}
-
-.hero-buttons {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  flex-wrap: wrap;
-}
-
-.btn-book {
-  background: #ce1212;
-  border: none;
-  padding: 12px 35px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  text-transform: none;
-  box-shadow: 0 4px 15px rgba(206, 18, 18, 0.3);
-}
-
-.btn-book:hover {
-  background: #a50e0e;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(206, 18, 18, 0.4);
-}
-
-.btn-watch {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: #37373f;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  padding: 10px 20px;
-}
-
-.btn-watch:hover {
-  color: #ce1212;
-  transform: translateY(-2px);
-}
-
-.play-icon {
-  width: 50px;
-  height: 50px;
-  background: #ce1212;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(206, 18, 18, 0.3);
-}
-
-.btn-watch:hover .play-icon {
-  background: #a50e0e;
-  transform: scale(1.1);
-}
-
-.play-icon i {
-  color: white;
-  font-size: 1rem;
-  margin-left: 3px;
-}
-
-.hero-image {
-  text-align: center;
   position: relative;
+  height: 100vh; /* Full viewport height */
+  background-image: url('../assets/menu-1.png'); /* Put your background image in src/assets/ */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
 }
 
-.hero-image img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  animation: float 3s ease-in-out infinite;
+/* Overlay effect */
+.home-section .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 1;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+/* Content on top of overlay */
+.home-section .content {
+  position: relative;
+  z-index: 2;
 }
 
-/* Responsive Design */
-@media (max-width: 991px) {
-  .hero-title {
-    font-size: 2.8rem;
-  }
-  
-  .home-section {
-    padding: 60px 0;
-    text-align: center;
-  }
-  
-  .hero-buttons {
-    justify-content: center;
-  }
+/* Headline style */
+.home-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.2rem;
-  }
-  
-  .hero-description {
-    font-size: 1.1rem;
-  }
-  
-  .hero-buttons {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .btn-watch {
-    justify-content: center;
-  }
+/* Paragraph style */
+.home-section p {
+  font-size: 1.2rem;
+}
+
+/* Button style */
+.home-section .btn {
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  margin-top: 1rem;
 }
