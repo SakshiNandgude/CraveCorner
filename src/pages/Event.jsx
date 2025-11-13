@@ -80,10 +80,7 @@ function Events() {
                 </div>
               </div>
 
-              <div className="event-footer">
-                <button className="btn-event-inquiry">Inquire Now</button>
-                <button className="btn-event-details">View Details</button>
-              </div>
+              
             </div>
           ))}
         </div>

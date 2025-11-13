@@ -1,11 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import About from "./About";
 import Event from "./Event";
 import Contact from "./Contact";
-import '../styles/Home.css';
-
+import "../styles/Home.css";
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <>
       <section
@@ -16,7 +18,12 @@ function Home() {
         <div className="content">
           <h1 className="display-3 fw-bold">Welcome to CraveCorner</h1>
           <p className="lead">Delicious food, cozy vibes, and memorable moments</p>
-          <button className="btn btn-danger mt-3">Book a table</button>
+          <button
+            className="btn btn-danger mt-3"
+            onClick={() => navigate("/book-table")}
+          >
+            Book a Table
+          </button>
         </div>
       </section>
 
