@@ -13,24 +13,44 @@ const BookTable = () => {
     specialRequest: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Reservation Data:", formData);
-    alert("🎉 Your table has been successfully booked!");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      date: "",
-      time: "",
-      guests: "",
-      menu: "",
-      specialRequest: "",
-    });
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("🎉 Your table has been successfully booked!");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          date: "",
+          time: "",
+          guests: "",
+          menu: "",
+          specialRequest: "",
+        });
+      } else {
+        alert("❌ Something went wrong while booking your table. Please try again!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("⚠️ Unable to connect to the server. Make sure the backend is running!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -141,8 +161,8 @@ const BookTable = () => {
             />
           </div>
 
-          <button type="submit" className="submit-btn">
-            Book Table
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Booking..." : "Book Table"}
           </button>
         </form>
       </div>
