@@ -4,70 +4,73 @@ function MenuCategories() {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const categories = [
-    "Vegetarian",
-    "Non-Veg",
-    "Mixed",
-    "Chef's Special"
+    {
+      name: "Vegetarian",
+      image:
+        "https://cdn-icons-png.flaticon.com/512/2909/2909763.png"
+    },
+    {
+      name: "Non-Veg",
+      image:
+        "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
+    },
+    {
+      name: "Mixed",
+      image:
+        "https://cdn-icons-png.flaticon.com/512/3093/3093012.png"
+    },
+    {
+      name: "Chef's Special",
+      image:
+        "https://cdn-icons-png.flaticon.com/512/1046/1046857.png"
+    }
   ];
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Select Menu Category</h2>
+    <div style={{ textAlign: "center", marginTop: "30px" }}>
+      <h2>Our Menu</h2>
 
-      <div style={styles.buttonContainer}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "25px",
+          flexWrap: "wrap",
+          marginTop: "20px"
+        }}
+      >
         {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
+          <div
+            key={cat.name}
+            onClick={() => setSelectedCategory(cat.name)}
             style={{
-              ...styles.button,
-              backgroundColor:
-                selectedCategory === cat ? "#8B0000" : "#d3d3d3",
-              color: selectedCategory === cat ? "white" : "black",
+              cursor: "pointer",
+              padding: "15px",
+              borderRadius: "12px",
+              border: "1px solid #ccc",
+              width: "150px",
+              background: selectedCategory === cat.name ? "#f8f8f8" : "white",
+              transition: "0.3s",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
             }}
           >
-            {cat}
-          </button>
+            <img
+              src={cat.image}
+              alt={cat.name}
+              style={{ width: "90px", height: "90px" }}
+            />
+            <p style={{ marginTop: "10px", fontWeight: "bold" }}>{cat.name}</p>
+          </div>
         ))}
       </div>
 
       {selectedCategory && (
-        <p style={styles.selectedText}>
-          You selected: <strong>{selectedCategory}</strong>
-        </p>
+        <h3 style={{ marginTop: "25px" }}>
+          You selected: <span style={{ color: "green" }}>{selectedCategory}</span>
+        </h3>
       )}
     </div>
   );
 }
-
-const styles = {
-  container: {
-    textAlign: "center",
-    marginTop: "30px",
-    fontFamily: "Poppins, sans-serif",
-  },
-  heading: {
-    marginBottom: "20px",
-  },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    gap: "15px",
-  },
-  button: {
-    padding: "12px 20px",
-    borderRadius: "8px",
-    fontSize: "16px",
-    cursor: "pointer",
-    border: "none",
-    transition: "0.3s",
-  },
-  selectedText: {
-    marginTop: "20px",
-    fontSize: "18px",
-    color: "#8B0000",
-  },
-};
 
 export default MenuCategories;
