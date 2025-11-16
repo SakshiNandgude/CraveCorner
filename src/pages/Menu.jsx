@@ -1,95 +1,108 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
-  const [items, setItems] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Vegetarian");
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // <-- add this
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Fetch all menu items from backend
-  useEffect(() => {
-    const fetchMenu = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/menu");
-        const data = await response.json();
-        setItems(data);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error fetching menu:", error);
-        setLoading(false);
-      }
-    };
+  const categories = [
+    { name: "Vegetarian", image: "https://cdn-icons-png.flaticon.com/512/415/415744.png" },
+    { name: "Non-Veg", image: "https://cdn-icons-png.flaticon.com/512/1046/1046751.png" },
+    { name: "Mixed", image: "https://cdn-icons-png.flaticon.com/512/706/706164.png" },
+    { name: "Chef's Special", image: "https://cdn-icons-png.flaticon.com/512/1046/1046772.png" },
+  ];
 
-    fetchMenu();
-  }, []);
-
-  // Filter based on selected category
-  const filteredItems = items.filter(
-    (item) => item.category === selectedCategory
-  );
+  const handleCategoryClick = (catName) => {
+    setSelectedCategory(catName); // optional: still highlight selected
+    navigate(`/menu/${catName}`); // <-- navigate to Categorymenu
+  };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Our Menu</h1>
-
-      {/* Category Buttons */}
-      <div style={{ marginBottom: "20px" }}>
-        {["Vegetarian", "Non-Veg", "Mixed", "Chef's Special"].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
+    <div
+      style={{
+        textAlign: "center",
+        padding: "60px 20px",
+        minHeight: "100vh",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        color: "#333",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "50px",
+          flexWrap: "wrap",
+          marginTop: "20px",
+        }}
+      >
+        {categories.map((cat) => (
+          <div
+            key={cat.name}
+            onClick={() => handleCategoryClick(cat.name)} // <-- updated
             style={{
-              margin: "10px",
-              padding: "10px 15px",
-              backgroundColor:
-                selectedCategory === cat ? "#c0392b" : "#eee",
-              color: selectedCategory === cat ? "white" : "black",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer"
+              width: "260px",
+              padding: "30px",
+              borderRadius: "25px",
+              cursor: "pointer",
+              background: "rgba(255, 255, 255, 0.8)",
+              boxShadow: "0px 10px 20px rgba(0,0,0,0.15)",
+              transition: "all 0.3s ease",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              border:
+                selectedCategory === cat.name
+                  ? "2px solid #ff4c4c"
+                  : "1px solid rgba(0,0,0,0.1)",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = "translateY(-10px)";
+              e.currentTarget.style.boxShadow = "0px 15px 25px rgba(0,0,0,0.25)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0px 10px 20px rgba(0,0,0,0.15)";
             }}
           >
-            {cat}
-          </button>
+            <img
+              src={cat.image}
+              alt={cat.name}
+              style={{
+                width: "200px",
+                height: "200px",
+                marginBottom: "20px",
+                objectFit: "contain",
+                transition: "transform 0.3s ease",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            />
+            <p
+              style={{
+                fontSize: "22px",
+                fontWeight: "700",
+              }}
+            >
+              {cat.name}
+            </p>
+          </div>
         ))}
       </div>
 
-      {/* Loading Message */}
-      {loading && <p>Loading menu items...</p>}
-
-      {/* Display Filtered Menu Items */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "20px"
-        }}
-      >
-        {!loading &&
-          filteredItems.map((dish) => (
-            <div
-              key={dish.id}
-              style={{
-                border: "1px solid #ddd",
-                padding: "10px",
-                borderRadius: "10px"
-              }}
-            >
-              <img
-                src={`/images/${dish.image}`}
-                alt={dish.name}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "8px"
-                }}
-              />
-              <h3>{dish.name}</h3>
-              <p>{dish.description}</p>
-              <p style={{ fontWeight: "bold" }}>${dish.price}</p>
-            </div>
-          ))}
-      </div>
+      {selectedCategory && (
+        <h3
+          style={{
+            marginTop: "50px",
+            fontSize: "26px",
+          }}
+        >
+          You selected: <span style={{ color: "#ff4c4c" }}>{selectedCategory}</span>
+        </h3>
+      )}
     </div>
   );
 }
