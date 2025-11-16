@@ -1,76 +1,103 @@
 import React, { useState } from "react";
 
-function MenuCategories() {
-  const [selectedCategory, setSelectedCategory] = useState("");
+const categoriesList = [
+  {
+    id: "vegetarian",
+    name: "Vegetarian",
+    // Unsplash image with query params (auto=format to avoid needing headers)
+    image:
+      "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=60"
+  },
+  {
+    id: "nonveg",
+    name: "Non-Veg",
+    image:
+      "https://images.unsplash.com/photo-1604908176997-125f28c24a4b?auto=format&fit=crop&w=800&q=60"
+  },
+  {
+    id: "mixed",
+    name: "Mixed",
+    image:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60"
+  },
+  {
+    id: "special",
+    name: "Chef's Special",
+    image:
+      "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=800&q=60"
+  }
+];
 
-  const categories = [
-    {
-      name: "Vegetarian",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/2909/2909763.png"
-    },
-    {
-      name: "Non-Veg",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
-    },
-    {
-      name: "Mixed",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/3093/3093012.png"
-    },
-    {
-      name: "Chef's Special",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/1046/1046857.png"
-    }
-  ];
+// small local placeholder (data URL) so you don't need a file
+const placeholder =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+      <rect width='100%' height='100%' fill='#f0f0f0'/>
+      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#bbb' font-size='18'>Image not available</text>
+    </svg>`
+  );
+
+export default function MenuCategories() {
+  const [selected, setSelected] = useState("");
+
+  // onError handler for <img> elements
+  const handleImgError = (e, cat) => {
+    console.warn(`Image failed to load for category "${cat.name}" — switching to placeholder.`, e?.nativeEvent?.message || "");
+    e.target.src = placeholder;
+  };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "30px" }}>
-      <h2>Our Menu</h2>
+    <div style={{ textAlign: "center", padding: 20 }}>
+      <h2 style={{ marginBottom: 18 }}>Select Menu Category</h2>
 
       <div
         style={{
           display: "flex",
           justifyContent: "center",
-          gap: "25px",
-          flexWrap: "wrap",
-          marginTop: "20px"
+          gap: 20,
+          flexWrap: "wrap"
         }}
       >
-        {categories.map((cat) => (
+        {categoriesList.map((cat) => (
           <div
-            key={cat.name}
-            onClick={() => setSelectedCategory(cat.name)}
+            key={cat.id}
+            role="button"
+            onClick={() => setSelected(cat.id)}
             style={{
               cursor: "pointer",
-              padding: "15px",
-              borderRadius: "12px",
-              border: "1px solid #ccc",
-              width: "150px",
-              background: selectedCategory === cat.name ? "#f8f8f8" : "white",
-              transition: "0.3s",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+              width: 220,
+              borderRadius: 10,
+              overflow: "hidden",
+              boxShadow: selected === cat.id ? "0 6px 18px rgba(0,0,0,0.18)" : "0 2px 8px rgba(0,0,0,0.08)",
+              border: selected === cat.id ? "2px solid #ff9800" : "1px solid #eee",
+              transition: "transform .12s, box-shadow .12s",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-4px)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
           >
-            <img
-              src={cat.image}
-              alt={cat.name}
-              style={{ width: "90px", height: "90px" }}
-            />
-            <p style={{ marginTop: "10px", fontWeight: "bold" }}>{cat.name}</p>
+            <div style={{ height: 140, width: "100%", background: "#ccc" }}>
+              <img
+                src={cat.image}
+                alt={cat.name}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                onError={(e) => handleImgError(e, cat)}
+              />
+            </div>
+
+            <div style={{ padding: 12, background: "#fff" }}>
+              <div style={{ fontWeight: 600, marginBottom: 6 }}>{cat.name}</div>
+              <div style={{ fontSize: 13, color: "#666" }}>{selected === cat.id ? "Selected" : "Click to view"}</div>
+            </div>
           </div>
         ))}
       </div>
 
-      {selectedCategory && (
-        <h3 style={{ marginTop: "25px" }}>
-          You selected: <span style={{ color: "green" }}>{selectedCategory}</span>
-        </h3>
+      {selected && (
+        <div style={{ marginTop: 22 }}>
+          <strong>You selected:</strong> {categoriesList.find(c => c.id === selected)?.name}
+        </div>
       )}
     </div>
   );
 }
-
-export default MenuCategories;
